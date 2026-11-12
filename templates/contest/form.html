@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+  Подать заявку на конкурс
+{% endblock %}
+
+{% block content %}
+  {% with data=form.instance %}
+    {% if '/edit/' in request.path %}
+      <h2>Редактировать заявку {{ data.id }}</h2>
+    {% elif '/delete/' in request.path %}
+      <h2>Удалить заявку {{ data.id }}</h2>
+    {% else %}
+      <h2>Подать заявку</h2>
+    {% endif %}
+
+    <div class="card col-4 mb-4">
+      <div class="card-header">
+        Конкурс мороженого
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {% if '/delete/' in request.path %}
+            <p>{{ data.title }}</p>
+            <p>{{ data.price }}</p>
+            <p>{{ data.description }}</p>
+            <p>{{ data.comment }}</p>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+          {% else %}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="Отправить" %}
+          {% endif %}
+          
+        </form>
+      </div>
+    </div>
+    {% if form.is_valid and '/delete/' not in request.path and '/edit/' not in request.path %}
+      <h2>Заявка №{{ data.id }} принята на конкурс!</h2>
+    {% endif %}
+  {% endwith %}
+{% endblock %}

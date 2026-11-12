@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Список заявок
+{% endblock %}
+
+{% block content %}
+  <h1>Список заявок на конкурс</h1>
+
+  {% for contest in contests %}
+    <div>
+      {{ contest.id }}, {{ contest.title }}, {{ contest.price }}, {{ contest.description }}, {{ contest.comment }}
+      <br>
+      <a href="{% url 'contest:edit' contest.id %}">Редактировать заявку</a> 
+      | 
+      <a href="{% url 'contest:delete' contest.id %}">Удалить заявку</a>
+    </div>
+    <hr>
+  {% empty %}
+    <p>Пока нет ни одной заявки.</p>
+  {% endfor %}
+{% endblock %}

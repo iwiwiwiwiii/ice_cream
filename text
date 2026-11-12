@@ -1,0 +1,9 @@
+python -m venv venv            (win)     python3 -m venv venv      (linux/MacOS)
+
+source venv/Scripts/activate   (win)     source venv/bin/activate  (linux/MacOS)
+
+pip install Django==3.2
+
+python manage.py migrate                    Применить миграции  (Применение созданных миграций или "пуш" для БД)
+
+python manage.py runserver
